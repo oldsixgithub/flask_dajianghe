@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import Flask, render_template, abort, send_file
+from flask import Flask, render_template, abort, send_file, current_app, Response
 from data.products import PRODUCTS
 from data.blogs import BLOGS
 import os
@@ -19,28 +19,80 @@ def google_verification():
         return "File Not Found", 404
 
 
-# Flask app.py 中新增sitemap路由
-from flask import send_file
-import os
-from flask import current_app  # 避免直接用app变量的问题
-
-
-# 替换原来的sitemap路由
+# ===== 修正后：完整动态生成 sitemap.xml（支持自动更新，适配你的项目）=====
 @app.route('/sitemap.xml')
-def serve_sitemap():
-    # 1. 确认文件路径是static文件夹下的sitemap.xml
-    sitemap_path = os.path.join(current_app.static_folder, 'sitemap.xml')
+def dynamic_sitemap():
+    # 1. 拼接 XML 头部（固定格式，无需修改）
+    xml_content = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    xml_content += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 
-    # 2. 检查文件是否存在
-    if not os.path.exists(sitemap_path):
-        return "Sitemap not found", 404
+    # 2. 添加首页（优先级最高，固定不变）
+    xml_content += '    <url>\n'
+    xml_content += f'        <loc>https://dajianghe.pythonanywhere.com/</loc>\n'
+    xml_content += '        <priority>1.0</priority>\n'
+    xml_content += '    </url>\n'
 
-    # 3. 关键：强制设置Content-Type为application/xml（谷歌要求的格式）
-    return send_file(
-        sitemap_path,
-        mimetype='application/xml',  # 必须是这个值，不能是text/html
-        as_attachment=False  # 不允许浏览器下载，直接在页面显示
-    )
+    # 3. 添加产品列表页（复数 /products，和你的路由一致）
+    xml_content += '    <url>\n'
+    xml_content += f'        <loc>https://dajianghe.pythonanywhere.com/products</loc>\n'
+    xml_content += '        <priority>0.9</priority>\n'
+    xml_content += '    </url>\n'
+
+    # 4. 自动添加所有产品详情页（适配 PRODUCTS 字典结构，新增产品自动包含）
+    # 遍历 PRODUCTS 字典（key=model，value=产品详情）
+    for model, product in PRODUCTS.items():
+        product_url = f'https://dajianghe.pythonanywhere.com/products/{model}'
+        xml_content += '    <url>\n'
+        xml_content += f'        <loc>{product_url}</loc>\n'
+        xml_content += '        <priority>0.8</priority>\n'  # 产品详情页优先级
+
+        # ===== 新增：读取产品的 update_time 和 publish_time，优先用 update_time =====
+        lastmod_value = None
+        # 第一步：优先取 update_time（最后修改时间）
+        if "update_time" in product:
+            lastmod_value = product["update_time"]
+        # 第二步：无 update_time 再取 publish_time（上架时间）
+        elif "publish_time" in product:
+            lastmod_value = product["publish_time"]
+        # 第三步：有值则写入 lastmod 标签（避免空标签）
+        if lastmod_value:
+            xml_content += f'        <lastmod>{lastmod_value}</lastmod>\n'
+
+        xml_content += '    </url>\n'
+
+    # 5. 添加 Blog 列表页（复数 /blogs，和你的路由一致）
+    xml_content += '    <url>\n'
+    xml_content += f'        <loc>https://dajianghe.pythonanywhere.com/blogs</loc>\n'
+    xml_content += '        <priority>0.8</priority>\n'
+    xml_content += '    </url>\n'
+
+    # 6. 自动添加所有 Blog 详情页（从 BLOGS 列表读取，新增 Blog 自动包含）
+    for blog in BLOGS:
+        blog_url = f'https://dajianghe.pythonanywhere.com/blogs/{blog["slug"]}'
+        xml_content += '    <url>\n'
+        xml_content += f'        <loc>{blog_url}</loc>\n'
+        # Blog 优先级（可在 BLOGS 数据中定义，无则默认 0.7）
+        xml_content += f'        <priority>{blog.get("priority", 0.7)}</priority>\n'
+
+        # ✅ 修正：判断单个 blog 中是否有 update_time/publish_time，优先用 update_time
+        lastmod_value = None
+        # 第一步：优先取 update_time（最后修改时间，SEO 更准确）
+        if "update_time" in blog:
+            lastmod_value = blog["update_time"]
+        # 第二步：无 update_time 再取 publish_time（发布时间）
+        elif "publish_time" in blog:
+            lastmod_value = blog["publish_time"]
+        # 第三步：有值则写入 lastmod 标签（避免空标签）
+        if lastmod_value:
+            xml_content += f'        <lastmod>{lastmod_value}</lastmod>\n'
+
+        xml_content += '    </url>\n'
+
+    # 7. 拼接 XML 尾部
+    xml_content += '</urlset>'
+
+    # 8. 返回 XML 内容，设置正确的 Content-Type（谷歌要求）
+    return Response(xml_content, mimetype='application/xml')
 
 
 # 新增：robots.txt 路由
@@ -200,17 +252,16 @@ def blog_list():
     )
 
 
-@app.route("/blogs/<slug>")
+# Blog详情页路由（动态匹配slug，渲染单篇Blog）
+@app.route('/blogs/<slug>')
 def blog_detail(slug):
-    blog = BLOGS.get(slug)
+    # 根据slug查找对应的Blog
+    blog = next((b for b in BLOGS if b["slug"] == slug), None)
+    # 如果找不到，返回404
     if not blog:
         return "Blog not found", 404
-
-    return render_template(
-        "blogs/blog_detail.html",
-        blog=blog,
-        slug=slug
-    )
+    # 渲染Blog详情模板，传递Blog数据
+    return render_template('blogs/blog_detail.html', blog=blog)
 
 
 @app.route('/contact')

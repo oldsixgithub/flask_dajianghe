@@ -1,34 +1,16 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}
-    Blog | Wireless Charger Wholesale Manufacturer
-{% endblock %}
-
-{% block meta %}
-    <meta name="description"
-          content="Wholesale wireless charger blog covering MagSafe chargers, OEM customization, MOQ and sourcing guides.">
-{% endblock %}
+{% block title %}最新博客 - 大江河数码{% endblock %}
 
 {% block content %}
-    <section class="blog-list">
-        <h1>Wholesale Wireless Charger Blog</h1>
-
-        {% for slug, blog in blogs.items() %}
-            <article class="blog-card">
-                <h2>
-                    <a href="{{ url_for('blog_detail', slug=slug) }}">
-                        {{ blog.title }}
-                    </a>
-                </h2>
-
-                <p class="blog-excerpt">
-                    {{ blog.excerpt }}
-                </p>
-
-                <p class="blog-meta">
-                    {{ blog.publish_date }} · {{ blog.author }}
-                </p>
-            </article>
+    <div class="blog-list">
+        <h1>最新博客</h1>
+        {% for blog in blogs %}
+            <div class="blog-item">
+                <h2><a href="/blogs/{{ blog.slug }}">{{ blog.title }}</a></h2>
+                <p>{{ blog.description }}</p>
+                <p>发布时间：{{ blog.publish_time }}</p>
+            </div>
         {% endfor %}
-    </section>
+    </div>
 {% endblock %}

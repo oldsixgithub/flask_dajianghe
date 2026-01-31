@@ -3,7 +3,9 @@ PRODUCTS = {
         "model": "h301",
         "name": "3-in-1 MagSafe Wireless Charger",
         "slug": "h301",
-
+        # ===== 新增：publish_time 和 update_time（格式 YYYY-MM-DD）=====
+        "publish_time": "2026-01-01",  # 产品上架时间（首次发布，后续无需修改）
+        "update_time": "2026-02-06",  # 产品信息最后修改时间（修改规格/SEO时更新）
         # ===== 仅保留图片根路径（用于扫描，无需填写子文件夹和图片） =====
         "image_base_path": "/static/images/products/h301/",
         # 本地实际图片根路径（关键！用于后端扫描文件，对应项目中的静态文件目录）
@@ -42,7 +44,9 @@ PRODUCTS = {
         "model": "c5",
         "name": "Car Magnetic Wireless Charger",
         "slug": "c5",
-
+        # ===== 新增：publish_time 和 update_time（格式 YYYY-MM-DD）=====
+        "publish_time": "2026-01-01",  # 产品上架时间（首次发布，后续无需修改）
+        "update_time": "2026-02-06",  # 产品信息最后修改时间（修改规格/SEO时更新）
         # ===== 仅保留图片根路径（用于扫描，无需填写子文件夹和图片） =====
         "image_base_path": "/static/images/products/c5/",
         # 本地实际图片根路径（关键！用于后端扫描文件，对应项目中的静态文件目录）
@@ -81,7 +85,9 @@ PRODUCTS = {
         "model": "c6",
         "name": "Touch Sensor Car Wireless Charger",
         "slug": "c6",
-
+        # ===== 新增：publish_time 和 update_time（格式 YYYY-MM-DD）=====
+        "publish_time": "2026-01-01",  # 产品上架时间（首次发布，后续无需修改）
+        "update_time": "2026-02-06",  # 产品信息最后修改时间（修改规格/SEO时更新）
         # ===== 仅保留图片根路径（用于扫描，无需填写子文件夹和图片） =====
         "image_base_path": "/static/images/products/c6/",
         # 本地实际图片根路径（关键！用于后端扫描文件，对应项目中的静态文件目录）
@@ -128,7 +134,9 @@ PRODUCTS = {
         "model": "q12",
         "name": "Touch Sensor Car Wireless Charger",
         "slug": "q12",
-
+        # ===== 新增：publish_time 和 update_time（格式 YYYY-MM-DD）=====
+        "publish_time": "2026-01-01",  # 产品上架时间（首次发布，后续无需修改）
+        "update_time": "2026-02-06",  # 产品信息最后修改时间（修改规格/SEO时更新）
         # ===== 仅保留图片根路径（用于扫描，无需填写子文件夹和图片） =====
         "image_base_path": "/static/images/products/q12/",
         # 本地实际图片根路径（关键！用于后端扫描文件，对应项目中的静态文件目录）
@@ -185,7 +193,9 @@ PRODUCTS = {
         "model": "q18",
         "name": "Desktop Round Single Wireless Charger",
         "slug": "q18",
-
+        # ===== 新增：publish_time 和 update_time（格式 YYYY-MM-DD）=====
+        "publish_time": "2026-01-01",  # 产品上架时间（首次发布，后续无需修改）
+        "update_time": "2026-02-06",  # 产品信息最后修改时间（修改规格/SEO时更新）
         # ===== 仅保留图片根路径（用于扫描，无需填写子文件夹和图片） =====
         "image_base_path": "/static/images/products/q18/",
         # 本地实际图片根路径（关键！用于后端扫描文件，对应项目中的静态文件目录）
@@ -233,7 +243,9 @@ PRODUCTS = {
         "model": "q21",
         "name": "Desktop Round Single Wireless Charger",
         "slug": "q21",
-
+        # ===== 新增：publish_time 和 update_time（格式 YYYY-MM-DD）=====
+        "publish_time": "2026-01-01",  # 产品上架时间（首次发布，后续无需修改）
+        "update_time": "2026-02-06",  # 产品信息最后修改时间（修改规格/SEO时更新）
         # ===== 仅保留图片根路径（用于扫描，无需填写子文件夹和图片） =====
         "image_base_path": "/static/images/products/q21/",
         # 本地实际图片根路径（关键！用于后端扫描文件，对应项目中的静态文件目录）
@@ -281,7 +293,9 @@ PRODUCTS = {
         "model": "z2",
         "name": "Desktop Stand Wireless Charger",
         "slug": "z2",
-
+        # ===== 新增：publish_time 和 update_time（格式 YYYY-MM-DD）=====
+        "publish_time": "2026-01-01",  # 产品上架时间（首次发布，后续无需修改）
+        "update_time": "2026-02-06",  # 产品信息最后修改时间（修改规格/SEO时更新）
         # ===== 仅保留图片根路径（用于扫描，无需填写子文件夹和图片） =====
         "image_base_path": "/static/images/products/z2/",
         # 本地实际图片根路径（关键！用于后端扫描文件，对应项目中的静态文件目录）
@@ -325,13 +339,14 @@ PRODUCTS = {
         "model": "z3",
         "name": "Foldable Desk Wireless Charger Stand",
         "slug": "z3",
-
+        # ===== 新增：publish_time 和 update_time（格式 YYYY-MM-DD）=====
+        "publish_time": "2026-01-01",  # 产品上架时间（首次发布，后续无需修改）
+        "update_time": "2026-02-06",  # 产品信息最后修改时间（修改规格/SEO时更新）
         # ===== 仅保留图片根路径（用于扫描，无需填写子文件夹和图片） =====
         "image_base_path": "/static/images/products/z3/",
         # 本地实际图片根路径（关键！用于后端扫描文件，对应项目中的静态文件目录）
         # 说明：/static/ 对应项目根目录下的 static/ 文件夹，需填写真实本地路径
         "local_image_base_path": "static/images/products/z3/",
-
         # ===== SEO 配置（保留，不改动） =====
         "image_alt": {
             "main": "Desk Charger Stand Wireless Charging",
