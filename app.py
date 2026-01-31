@@ -20,14 +20,27 @@ def google_verification():
 
 
 # Flask app.py 中新增sitemap路由
+from flask import send_file
+import os
+from flask import current_app  # 避免直接用app变量的问题
+
+
+# 替换原来的sitemap路由
 @app.route('/sitemap.xml')
-def sitemap():
-    file_path = os.path.join(app.static_folder, 'sitemap.xml')
-    if os.path.exists(file_path):
-        # 返回xml文件，指定content-type避免浏览器乱码
-        return send_file(file_path, mimetype='application/xml')
-    else:
-        return "Sitemap Not Found", 404
+def serve_sitemap():
+    # 1. 确认文件路径是static文件夹下的sitemap.xml
+    sitemap_path = os.path.join(current_app.static_folder, 'sitemap.xml')
+
+    # 2. 检查文件是否存在
+    if not os.path.exists(sitemap_path):
+        return "Sitemap not found", 404
+
+    # 3. 关键：强制设置Content-Type为application/xml（谷歌要求的格式）
+    return send_file(
+        sitemap_path,
+        mimetype='application/xml',  # 必须是这个值，不能是text/html
+        as_attachment=False  # 不允许浏览器下载，直接在页面显示
+    )
 
 
 # 新增：robots.txt 路由
