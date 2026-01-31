@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="google-site-verification" content="O91FdD0Alt7-dEZ64nAkYyv2nVyayQVdMhntyaTokAU"/>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+    <title>{% block title %}DJH Wireless Charger Factory{% endblock %}</title>
+
+    {% block meta %}
+        <meta name="description"
+              content="Professional wireless charger manufacturer in China. OEM & wholesale supplier.">
+    {% endblock %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/card.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/table.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/image-gallery.css') }}">
+
+
+    {% block css %}{% endblock %}
+
+</head>
+<body>
+
+<header class="nav-bar">
+    <div class="nav-inner">
+        <div class="nav-logo"><a href="/">DJH Wireless charger factory</a></div>
+        <nav class="nav-menu">
+
+            <a href="/products">Products</a>
+            <a href="/blogs">Blogs</a>
+            <a href="/oem-custom">Oem & Custom</a>
+            <a href="/contact">Contact</a>
+            <a href="/about">About</a>
+
+        </nav>
+    </div>
+</header>
+
+<main class="page-container">
+    {% block content %}
+        {% include 'home.html' %}
+    {% endblock %}
+</main>
+
+<footer class="footer"><p>&copy; 2026 DaJiangHe Wireless Charger Factory</p></footer>
+
+{% block js %}{% endblock %}
+</body>
+</html>

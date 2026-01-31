@@ -1,0 +1,77 @@
+/* =====================================================
+   components/card.css
+   职责：所有卡片类组件的通用样式
+===================================================== */
+/* 基础卡片（page-card） */
+.page-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: var(--gap-xl);
+    margin-bottom: var(--gap-xl);
+    border: 1px solid var(--border-color-light);
+}
+
+.page-card:last-child {
+    margin-bottom: 0;
+}
+
+/* 产品卡片三列布局（通用） */
+.product-card-container {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--gap-lg);
+    width: 100%;
+}
+
+/* 产品卡片-图片列 */
+.product-image-col {
+    flex: 1;
+    min-width: 150px;
+}
+
+.product-image-col img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+}
+
+/* 产品卡片-参数列/装箱列 */
+.product-params-col,
+.product-packing-col {
+    flex: 2;
+}
+
+/* 通用列表样式（参数/装箱） */
+.params-list,
+.packing-list {
+    padding: 0;
+    margin: var(--gap-md) 0 0 0;
+}
+
+.params-list li,
+.packing-list li {
+    margin: var(--gap-sm) 0;
+    font-size: 14px;
+}
+
+.params-list li {
+    color: var(--text-main);
+}
+
+.packing-list li {
+    color: var(--text-third);
+}
+
+/* 响应式：小屏垂直布局 */
+@media (max-width: 768px) {
+    .page-card {
+        padding: var(--gap-md);
+        margin-bottom: var(--gap-md);
+    }
+
+    .product-card-container {
+        flex-direction: column;
+    }
+}

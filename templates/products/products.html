@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Wireless Charging Products | 3-in-1 MagSafe Charging Station Manufacturer
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/products.css') }}">
+{% endblock %}
+
+{% block meta %}
+    <meta name="description"
+          content="Explore our wireless charging products including 3-in-1 MagSafe charging stations for iPhone, Apple Watch and AirPods. OEM & wholesale available.">
+{% endblock %}
+
+{% block content %}
+    <!-- 新增：卡片样式切换按钮 -->
+    <div class="card-toggle-container">
+        <button class="btn-toggle card-toggle-active" data-card-type="detailed">Detailed View</button>
+        <button class="btn-toggle" data-card-type="simple">Simple View</button>
+    </div>
+
+    <h1>Wireless Charging Products</h1>
+
+    <!-- 改造：外层添加卡片容器，用于切换样式 -->
+    <div class="product-cards-container" id="productCardsContainer">
+        {% for key, product in products.items() %}
+            {% set scanned_images = product.scanned_images %}
+            {% set main_image = scanned_images.main_image %}
+            {% if main_image %}  <!-- 判空，避免图片不存在时报错 -->
+                <!-- 改造：给卡片添加双样式类，通过JS切换容器类来控制显示 -->
+                <div class="product-card-wrapper" data-model="{{ key }}">
+                    <!-- 原有详细卡片 -->
+                    <div class="page-card detailed-card">
+                        <div class="product-card-container">
+                            <div class="product-image-col">
+                                <a href="{{ url_for('product_detail', model=key) }}">
+                                    <img
+                                            src="{{ main_image.path }}"
+                                            alt="{{ main_image.alt }}"
+                                    >
+                                </a>
+                            </div>
+
+                            <div class="product-params-col">
+                                <h3>{{ product.name }}</h3>
+                                <ul class="params-list">
+                                    <li><strong>Model:</strong> {{ key }}</li>
+                                    <li>
+                                        <strong>Input:</strong> {{ product.specs.input if product.specs.input else '暂无' }}
+                                    </li>
+                                    <li>
+                                        <strong>Output:</strong> {{ product.specs.output if product.specs.output else '暂无' }}
+                                    </li>
+                                    <li>
+                                        <strong>Material:</strong> {{ product.specs.material if product.specs.material else '暂无' }}
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="product-packing-col">
+                                <h4>Packing list</h4>
+                                <ul class="packing-list">
+                                    <li>
+                                        <strong>{{ product.packing.bare_metal if product.packing.bare_metal else '暂无' }}</strong>
+                                    </li>
+                                    <li>
+                                        <strong>{{ product.packing.full_set if product.packing.full_set else '暂无' }}</strong>
+                                    </li>
+                                    <li><strong>{{ product.packing.fcl if product.packing.fcl else '暂无' }}</strong>
+                                    </li>
+                                </ul>
+                                <a href="{{ url_for('product_detail', model=key) }}">View details</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 新增：简约卡片（仅图片+产品名称） -->
+                    <div class="page-card simple-card">
+                        <a href="{{ url_for('product_detail', model=key) }}" class="simple-card-link">
+                            <div class="simple-card-image">
+                                <img src="{{ main_image.path }}" alt="{{ main_image.alt }}">
+                            </div>
+                            <h3 class="simple-card-name">{{ product.name }}</h3>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+<!-- 新增：JS 实现卡片切换逻辑 -->
+{% block js %}
+    <script>
+        // 获取元素
+        const toggleContainer = document.querySelector('.card-toggle-container');
+        const toggleButtons = document.querySelectorAll('.btn-toggle');
+        const productCardsContainer = document.getElementById('productCardsContainer');
+
+        // 切换卡片样式函数
+        function switchCardType(cardType) {
+            // 1. 更新按钮激活状态
+            toggleButtons.forEach(btn => {
+                if (btn.dataset.cardType === cardType) {
+                    btn.classList.add('card-toggle-active');
+                } else {
+                    btn.classList.remove('card-toggle-active');
+                }
+            });
+
+            // 2. 更新容器样式，控制卡片显示
+            if (cardType === 'simple') {
+                productCardsContainer.classList.add('simple-view');
+                productCardsContainer.classList.remove('detailed-view');
+            } else {
+                productCardsContainer.classList.add('detailed-view');
+                productCardsContainer.classList.remove('simple-view');
+            }
+        }
+
+        // 3. 给按钮绑定点击事件
+        toggleButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const cardType = btn.dataset.cardType;
+                switchCardType(cardType);
+            });
+        });
+
+        // 核心修复：优化初始化时机（DOMContentLoaded 比 window.onload 早，避免延迟）
+        // 同时，因为 CSS 已预设默认样式，此处初始化仅为补充类名，确保后续切换逻辑正常
+        document.addEventListener('DOMContentLoaded', () => {
+            switchCardType('detailed');
+        });
+    </script>
+{% endblock %}

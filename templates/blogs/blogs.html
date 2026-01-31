@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Blog | Wireless Charger Wholesale Manufacturer
+{% endblock %}
+
+{% block meta %}
+    <meta name="description"
+          content="Wholesale wireless charger blog covering MagSafe chargers, OEM customization, MOQ and sourcing guides.">
+{% endblock %}
+
+{% block content %}
+    <section class="blog-list">
+        <h1>Wholesale Wireless Charger Blog</h1>
+
+        {% for slug, blog in blogs.items() %}
+            <article class="blog-card">
+                <h2>
+                    <a href="{{ url_for('blog_detail', slug=slug) }}">
+                        {{ blog.title }}
+                    </a>
+                </h2>
+
+                <p class="blog-excerpt">
+                    {{ blog.excerpt }}
+                </p>
+
+                <p class="blog-meta">
+                    {{ blog.publish_date }} · {{ blog.author }}
+                </p>
+            </article>
+        {% endfor %}
+    </section>
+{% endblock %}

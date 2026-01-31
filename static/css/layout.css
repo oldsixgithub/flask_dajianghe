@@ -1,0 +1,145 @@
+/* =====================================================
+   layout.css
+   职责：导航/页脚/页面容器 等全局布局
+   优化：清除冗余样式，防止手机端文字溢出
+===================================================== */
+/* 顶部导航 */
+.nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--bg-nav);
+    border-bottom: 1px solid var(--border-color);
+    /* 防止导航溢出屏幕 */
+    max-width: 100vw;
+    width: 100%;
+}
+
+.nav-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--gap-lg);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* 手机端防止内部元素溢出 */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.nav-logo a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 18px;
+    font-weight: 600;
+    /* 导航logo文字不溢出 */
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.nav-menu {
+    display: flex;
+    gap: var(--gap-xl);
+    /* 防止导航菜单溢出 */
+    flex-wrap: wrap;
+    max-width: calc(100% - 150px); /* 给logo预留空间，避免挤在一起 */
+}
+
+.nav-menu a {
+    color: var(--text-sub);
+    font-size: 14px;
+    position: relative;
+    /* 导航菜单文字不溢出 */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nav-menu a:hover {
+    color: var(--text-main);
+}
+
+/* 页面主体容器：自动填充剩余空间，将页脚推到底部 */
+.page-container {
+    flex: 1;
+    max-width: var(--max-width);
+    margin: var(--gap-xl) auto;
+    padding: 0 var(--gap-lg);
+    /* 防止主体容器溢出手机屏幕 */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 页脚 */
+.footer {
+    margin-top: calc(var(--gap-xl) * 2.5);
+    padding: var(--gap-xl) 0;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    color: var(--text-sub);
+    font-size: 13px;
+    width: 100%;
+    box-sizing: border-box;
+    /* 页脚左右内边距，与主体对齐 */
+    padding-left: var(--gap-lg);
+    padding-right: var(--gap-lg);
+    /* 防止页脚溢出 */
+    max-width: 100vw;
+}
+
+/* 页面动画（统一管理） */
+.fade-enter {
+    opacity: 0;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 1s ease;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit-active {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+/* 响应式适配（重点优化手机端，防止溢出） */
+@media (max-width: 768px) {
+    .nav-inner {
+        height: auto;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--gap-md);
+        padding: var(--gap-md) var(--gap-md);
+        /* 手机端导航内部宽度100% */
+        width: 100%;
+    }
+
+    .nav-menu {
+        gap: var(--gap-lg);
+        flex-wrap: wrap;
+        /* 手机端导航菜单占满宽度 */
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .page-container {
+        margin: var(--gap-md) auto;
+        /* 手机端主体内边距微调，避免贴边 */
+        padding: 0 var(--gap-md);
+    }
+
+    /* 手机端页脚保持贴底，微调间距 */
+    .footer {
+        margin-top: var(--gap-xl);
+        padding: var(--gap-lg) var(--gap-md);
+        width: 100%;
+        max-width: 100vw;
+    }
+}

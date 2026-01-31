@@ -1,0 +1,116 @@
+/* =====================================================
+   components/form.css
+   职责：表单/按钮通用样式
+===================================================== */
+/* 表单组 */
+.form-group {
+    margin-bottom: var(--gap-lg);
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: var(--text-main);
+}
+
+/* 输入控件 */
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    color: var(--text-main);
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-input[type="file"] {
+    padding: 8px;
+}
+
+/* 下拉框 */
+.form-select {
+    padding-right: 36px;
+    appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;utf8,\
+        <svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 20 20'>\
+        <path d='M5 7l5 6 5-6' stroke='%236b7280' stroke-width='2' fill='none'/>\
+        </svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+}
+
+.form-select:disabled {
+    background-color: #f3f4f6;
+    color: var(--text-sub);
+    cursor: not-allowed;
+}
+
+/* 按钮体系 */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+.btn-secondary {
+    background: var(--text-sub);
+    color: #fff;
+}
+
+.btn-danger {
+    background: #dc2626;
+    color: #fff;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* 表单操作区 */
+.form-actions {
+    margin-top: var(--gap-xl);
+    display: flex;
+    gap: 12px;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}

@@ -1,0 +1,73 @@
+/* =====================================================
+   components/table.css
+   职责：表格通用样式
+===================================================== */
+table {
+    max-width: 1800px;
+    width: 100%;
+    margin: 0 auto;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+}
+
+th, td {
+    padding: 10px 15px;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+th {
+    background-color: var(--bg-grey);
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+    width: 300px;
+}
+
+/* 奇偶行样式 */
+tr:nth-child(odd) {
+    background: var(--bg-grey-light);
+}
+
+tr:nth-child(even) {
+    background: var(--bg-card);
+}
+
+/* 悬停高亮 */
+tr:hover {
+    background: #f3f4f6;
+}
+
+/* 视频列 */
+td.video-cell {
+    text-align: center;
+    vertical-align: middle;
+    max-width: 200px;
+    padding: 0;
+}
+
+td.video-cell video {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    table {
+        font-size: 12px;
+    }
+
+    th, td {
+        padding: 10px 12px;
+    }
+
+    td.video-cell video {
+        width: 100%;
+    }
+}

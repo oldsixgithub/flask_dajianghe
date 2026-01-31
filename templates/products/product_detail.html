@@ -1,0 +1,308 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ product.seo_title }}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/product_detail.css') }}">
+{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="{{ product.seo_description }}">
+{% endblock %}
+
+{% block content %}
+    <section class="product-detail">
+        <!-- 原有 HTML 结构不变，此处省略（和之前一致） -->
+        <h1>{{ product.name }}</h1>
+
+        {% set scanned_images = product.scanned_images %}
+        {% for cat_key, category in scanned_images.categories.items() %}
+            {% if cat_key != 'main' and category.images|length > 0 %}
+                <div class="page-card product-image-gallery">
+                    <h3>{{ category.name }}</h3>
+
+                    <div class="product-image-viewer">
+                        <div class="thumbnail-container">
+                            {% for img in category.images %}
+                                {% set img_index = loop.index0 %}
+                                {% set alt_keyword = product.image_alt.keywords[img_index % product.image_alt.keywords|length] %}
+                                {% set full_img_path = scanned_images.base_path ~ cat_key ~ '/' ~ img %}
+                                <div class="thumbnail-item"
+                                     data-cat="{{ cat_key }}"
+                                     data-index="{{ img_index }}"
+                                     data-img-url="{{ full_img_path }}"
+                                     data-img-alt="{{ product.model }} {{ alt_keyword }} ({{ category.name }} {{ loop.index }})">
+                                    <img src="{{ full_img_path }}"
+                                         alt="{{ product.model }} {{ alt_keyword }} ({{ category.name }} {{ loop.index }})">
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="main-image-wrapper" data-cat="{{ cat_key }}">
+                            <div class="main-image-container">
+                                {% set first_img = category.images[0] %}
+                                {% set first_img_path = scanned_images.base_path ~ cat_key ~ '/' ~ first_img %}
+                                {% set first_img_alt = product.model ~ ' ' ~ product.image_alt.keywords[0] ~ ' (' ~ category.name ~ ' 1)' %}
+                                <img
+                                        id="main-image-{{ cat_key }}"
+                                        class="current-main-image"
+                                        data-cat="{{ cat_key }}"
+                                        data-total="{{ category.images|length }}"
+                                        src="{{ first_img_path }}"
+                                        alt="{{ first_img_alt }}"
+                                >
+                            </div>
+
+                            {% if category.images|length > 1 %}
+                                <button class="main-image-btn left-btn" data-cat="{{ cat_key }}">«</button>
+                                <button class="main-image-btn right-btn" data-cat="{{ cat_key }}">»</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <h2>Specifications</h2>
+        <table>
+            {% for key, value in product.specs.items() %}
+                <tr>
+                    <th>{{ key }}</th>
+                    <td data-label="{{ key }}">{{ value }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Packaging</h2>
+        <table>
+            {% for key, value in product.packing.items() %}
+                <tr>
+                    <th>{{ key }}</th>
+                    <td data-label="{{ key }}">{{ value }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </section>
+
+    <script>
+        // 全局变量：记录每个分类的当前大图索引
+        const currentImageIndex = {};
+        // 新增：拖拽/滑动相关全局变量（记录每个分类的交互状态）
+        // 核心修改：新增 startY、moveY 记录纵向坐标，用于判断滑动方向
+        const dragState = {}; // 结构：{ catKey: { startX: 0, startY: 0, isDragging: false, moveX: 0, moveY: 0 } }
+
+        // 初始化：页面加载完成后设置每个分类的初始索引为 0，初始化拖拽状态
+        document.addEventListener('DOMContentLoaded', function () {
+            const allCategories = document.querySelectorAll('[data-cat]');
+            allCategories.forEach(item => {
+                const catKey = item.dataset.cat;
+                if (!currentImageIndex[catKey]) {
+                    currentImageIndex[catKey] = 0;
+                }
+                // 初始化拖拽状态（新增 startY、moveY）
+                if (!dragState[catKey]) {
+                    dragState[catKey] = {
+                        startX: 0,
+                        startY: 0, // 新增：纵向起始坐标
+                        isDragging: false,
+                        moveX: 0,
+                        moveY: 0  // 新增：纵向移动距离
+                    };
+                }
+            });
+
+            // 1. 缩略图点击事件（仅PC端有效）
+            const thumbnailItems = document.querySelectorAll('.thumbnail-item');
+            thumbnailItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    const catKey = this.dataset.cat;
+                    const imgIndex = parseInt(this.dataset.index);
+                    const imgUrl = this.dataset.imgUrl;
+                    const imgAlt = this.dataset.imgAlt;
+
+                    currentImageIndex[catKey] = imgIndex;
+                    updateMainImage(catKey, imgUrl, imgAlt);
+
+                    // 更新缩略图激活状态
+                    document.querySelectorAll(`.thumbnail-item[data-cat="${catKey}"]`).forEach(thumb => {
+                        thumb.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+
+            // 2. 大图左右滑动按钮事件（仅PC端有效，手机端已隐藏）
+            const mainImageBtns = document.querySelectorAll('.main-image-btn');
+            mainImageBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const catKey = this.dataset.cat;
+                    const totalImages = parseInt(document.getElementById(`main-image-${catKey}`).dataset.total);
+                    if (totalImages === 0) return;
+
+                    // 循环切换索引
+                    if (this.classList.contains('left-btn')) {
+                        currentImageIndex[catKey] = (currentImageIndex[catKey] - 1 + totalImages) % totalImages;
+                    } else {
+                        currentImageIndex[catKey] = (currentImageIndex[catKey] + 1) % totalImages;
+                    }
+
+                    // 更新大图和缩略图
+                    updateImageByIndex(catKey);
+                });
+            });
+
+            // 3. 新增：鼠标拖拽事件（PC端）- 绑定到大图容器
+            const mainImageWrappers = document.querySelectorAll('.main-image-wrapper');
+            mainImageWrappers.forEach(wrapper => {
+                const catKey = wrapper.dataset.cat;
+                const mainImage = document.getElementById(`main-image-${catKey}`);
+
+                // 鼠标按下：记录起始位置
+                wrapper.addEventListener('mousedown', function (e) {
+                    // 仅当图片数量>1时允许拖拽
+                    const totalImages = parseInt(mainImage.dataset.total);
+                    if (totalImages <= 1) return;
+
+                    dragState[catKey].startX = e.clientX;
+                    dragState[catKey].isDragging = true;
+                    dragState[catKey].moveX = 0;
+                    // 隐藏鼠标光标，提升交互体验
+                    wrapper.style.cursor = 'grabbing';
+                });
+
+                // 鼠标移动：计算拖拽距离
+                document.addEventListener('mousemove', function (e) {
+                    if (!dragState[catKey].isDragging) return;
+
+                    dragState[catKey].moveX = e.clientX - dragState[catKey].startX;
+                });
+
+                // 鼠标松开：判断是否切换图片
+                document.addEventListener('mouseup', function () {
+                    if (!dragState[catKey].isDragging) return;
+
+                    const totalImages = parseInt(mainImage.dataset.total);
+                    const dragThreshold = 50; // 拖拽阈值：超过50px才切换图片，避免误触
+
+                    // 判断拖拽方向和距离，切换图片
+                    if (dragState[catKey].moveX < -dragThreshold) {
+                        // 向左拖拽：切换到下一张（同右按钮）
+                        currentImageIndex[catKey] = (currentImageIndex[catKey] + 1) % totalImages;
+                    } else if (dragState[catKey].moveX > dragThreshold) {
+                        // 向右拖拽：切换到上一张（同左按钮）
+                        currentImageIndex[catKey] = (currentImageIndex[catKey] - 1 + totalImages) % totalImages;
+                    }
+
+                    // 更新大图和缩略图
+                    if (Math.abs(dragState[catKey].moveX) > dragThreshold) {
+                        updateImageByIndex(catKey);
+                    }
+
+                    // 重置拖拽状态
+                    dragState[catKey].isDragging = false;
+                    dragState[catKey].moveX = 0;
+                    wrapper.style.cursor = 'default';
+                });
+
+                // 鼠标离开：强制重置拖拽状态，防止异常
+                wrapper.addEventListener('mouseleave', function () {
+                    dragState[catKey].isDragging = false;
+                    dragState[catKey].moveX = 0;
+                    wrapper.style.cursor = 'default';
+                });
+
+                // 4. 新增：手机端手指滑动事件（核心修改：增加方向判断，解决上下滚动问题）
+                // 手指触摸开始：记录起始位置（新增 startY）
+                wrapper.addEventListener('touchstart', function (e) {
+                    const totalImages = parseInt(mainImage.dataset.total);
+                    if (totalImages <= 1) return;
+
+                    // 记录横向和纵向起始坐标
+                    dragState[catKey].startX = e.touches[0].clientX;
+                    dragState[catKey].startY = e.touches[0].clientY; // 新增：记录纵向起始位置
+                    dragState[catKey].isDragging = true;
+                    dragState[catKey].moveX = 0;
+                    dragState[catKey].moveY = 0; // 新增：初始化纵向移动距离
+                }, {passive: false}); // passive: false 允许后续条件性阻止默认行为
+
+                // 手指移动：计算滑动距离（新增 moveY），并判断滑动方向
+                wrapper.addEventListener('touchmove', function (e) {
+                    if (!dragState[catKey].isDragging) return;
+
+                    // 计算横向、纵向移动距离
+                    dragState[catKey].moveX = e.touches[0].clientX - dragState[catKey].startX;
+                    dragState[catKey].moveY = e.touches[0].clientY - dragState[catKey].startY; // 新增：计算纵向移动距离
+
+                    // 核心逻辑：判断滑动方向
+                    const absMoveX = Math.abs(dragState[catKey].moveX); // 横向移动绝对值
+                    const absMoveY = Math.abs(dragState[catKey].moveY); // 纵向移动绝对值
+
+                    // 只有当「横向滑动距离 > 纵向滑动距离」时，才阻止默认行为（用于切换图片）
+                    // 反之（上下滑动），不阻止默认行为，保留页面滚动功能
+                    if (absMoveX > absMoveY) {
+                        e.preventDefault(); // 仅左右滑动时，阻止默认行为（避免页面横向滚动）
+                    }
+                    // 上下滑动时，不执行 e.preventDefault()，页面正常滚动
+                }, {passive: false}); // passive: false 允许条件性调用 preventDefault()
+
+                // 手指离开：判断是否切换图片
+                wrapper.addEventListener('touchend', function () {
+                    if (!dragState[catKey].isDragging) return;
+
+                    const totalImages = parseInt(mainImage.dataset.total);
+                    const dragThreshold = 30; // 手机端阈值稍小，提升触控体验
+
+                    // 仅当横向滑动距离超过阈值时，才切换图片
+                    if (Math.abs(dragState[catKey].moveX) > dragThreshold) {
+                        if (dragState[catKey].moveX < -dragThreshold) {
+                            // 向左滑动：下一张
+                            currentImageIndex[catKey] = (currentImageIndex[catKey] + 1) % totalImages;
+                        } else if (dragState[catKey].moveX > dragThreshold) {
+                            // 向右滑动：上一张
+                            currentImageIndex[catKey] = (currentImageIndex[catKey] - 1 + totalImages) % totalImages;
+                        }
+                        // 更新大图和缩略图
+                        updateImageByIndex(catKey);
+                    }
+
+                    // 重置拖拽状态
+                    dragState[catKey].isDragging = false;
+                    dragState[catKey].moveX = 0;
+                    dragState[catKey].moveY = 0; // 新增：重置纵向移动距离
+                });
+            });
+
+            // 5. 初始化第一个缩略图为激活状态
+            document.querySelectorAll('.thumbnail-item[data-index="0"]').forEach(item => {
+                item.classList.add('active');
+            });
+        });
+
+        // 辅助函数：更新指定分类的大图
+        function updateMainImage(catKey, imgUrl, imgAlt) {
+            const mainImage = document.getElementById(`main-image-${catKey}`);
+            if (mainImage) {
+                mainImage.src = imgUrl;
+                mainImage.alt = imgAlt;
+            }
+        }
+
+        // 新增辅助函数：根据当前索引更新大图和缩略图
+        function updateImageByIndex(catKey) {
+            const targetThumbnail = document.querySelector(`.thumbnail-item[data-cat="${catKey}"][data-index="${currentImageIndex[catKey]}"]`);
+            if (targetThumbnail) {
+                const imgUrl = targetThumbnail.dataset.imgUrl;
+                const imgAlt = targetThumbnail.dataset.imgAlt;
+                updateMainImage(catKey, imgUrl, imgAlt);
+
+                // 更新缩略图激活状态
+                document.querySelectorAll(`.thumbnail-item[data-cat="${catKey}"]`).forEach(thumb => {
+                    thumb.classList.remove('active');
+                });
+                targetThumbnail.classList.add('active');
+            }
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,75 @@
+/* =====================================================
+   components/image-gallery.css
+   职责：通用图片画廊（非详情页专用）
+   优化：重命名选择器，避免和 product_detail.css 冲突
+===================================================== */
+/* 通用图片画廊（重命名：generic-image-gallery，避免和详情页冲突） */
+.generic-image-gallery {
+    display: flex;
+    gap: var(--gap-lg);
+    align-items: flex-start;
+    padding: var(--gap-lg);
+}
+
+/* 左侧缩略图（通用版，重命名前缀） */
+.generic-thumbnail-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+    width: 100px;
+}
+
+.generic-thumbnail-item {
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.generic-thumbnail-item.active {
+    border-color: var(--color-active);
+}
+
+.generic-thumbnail-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: var(--radius-xs);
+}
+
+/* 右侧大图（通用版，重命名前缀） */
+.generic-main-image-container {
+    flex: 1;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-grey-light);
+    border-radius: var(--radius);
+    padding: var(--gap-lg);
+}
+
+.generic-main-image-container img {
+    max-width: 100%;
+    max-height: 500px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .generic-image-gallery {
+        flex-direction: column;
+    }
+
+    .generic-thumbnail-container {
+        flex-direction: row;
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: var(--gap-sm);
+    }
+
+    .generic-thumbnail-item {
+        min-width: 80px;
+    }
+}

@@ -1,0 +1,174 @@
+/* =====================================================
+   pages/products.css
+   职责：仅产品列表页特有样式（无通用样式）
+   优化：删除重复变量定义，复用 base.css 全局变量
+===================================================== */
+/* 卡片切换按钮容器 */
+.card-toggle-container {
+    margin-bottom: var(--gap-xl);
+    display: flex;
+    gap: var(--gap-md);
+    align-items: center;
+}
+
+/* 切换按钮样式 */
+.btn-toggle {
+    padding: 8px 16px;
+    background: var(--bg-card);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-toggle.card-toggle-active {
+    background: var(--color-primary);
+    color: #fff;
+    border-color: var(--color-primary);
+}
+
+.btn-toggle:hover:not(.card-toggle-active) {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+/* 产品列表页标题 */
+h1 {
+    margin-bottom: var(--gap-xl);
+    font-size: 24px;
+    color: var(--text-main);
+}
+
+/* 产品卡片容器 - 控制整体布局 */
+.product-cards-container {
+    width: 100%;
+}
+
+/* 预设默认样式（详细视图），无需等 JS 执行，避免闪现 */
+.product-cards-container .product-card-wrapper .simple-card {
+    display: none;
+}
+
+.product-cards-container .product-card-wrapper .detailed-card {
+    display: block;
+}
+
+/* 详细视图 - 保持原有布局 */
+.product-cards-container.detailed-view {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xl);
+}
+
+.product-cards-container.detailed-view .product-card-wrapper .simple-card {
+    display: none;
+}
+
+.product-cards-container.detailed-view .product-card-wrapper .detailed-card {
+    display: block;
+}
+
+/* 简约视图 - 网格布局 */
+.product-cards-container.simple-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--gap-lg);
+}
+
+.product-cards-container.simple-view .product-card-wrapper .detailed-card {
+    display: none;
+}
+
+.product-cards-container.simple-view .product-card-wrapper .simple-card {
+    display: block;
+}
+
+/* 简约卡片样式 */
+.simple-card {
+    padding: var(--gap-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.simple-card-link {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+}
+
+.simple-card-image {
+    width: 100%;
+    margin-bottom: var(--gap-md);
+}
+
+.simple-card-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+}
+
+/* 简约卡片名称 - 超长自动换行 */
+.simple-card-name {
+    font-size: 16px;
+    color: var(--text-main);
+    word-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* 装箱列表标题 */
+.product-packing-col h4 {
+    margin-bottom: var(--gap-sm);
+    font-size: 16px;
+    color: var(--text-main);
+}
+
+/* 查看详情链接 */
+.product-packing-col a {
+    display: inline-block;
+    margin-top: var(--gap-md);
+    padding: 6px 12px;
+    background: var(--color-primary);
+    color: #fff;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+}
+
+.product-packing-col a:hover {
+    opacity: 0.9;
+}
+
+/* 响应式适配 - 手机端简约视图每行1张 */
+@media (max-width: 768px) {
+    .product-cards-container.simple-view {
+        grid-template-columns: 1fr; /* 手机端每行1张 */
+        gap: var(--gap-md);
+    }
+
+    .simple-card {
+        padding: var(--gap-sm);
+    }
+
+    .simple-card-name {
+        font-size: 14px;
+    }
+
+    /* 响应式：切换按钮容器 */
+    .card-toggle-container {
+        gap: var(--gap-sm);
+    }
+
+    .btn-toggle {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}

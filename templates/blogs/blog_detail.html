@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ blog.seo_title }}
+{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="{{ blog.seo_description }}">
+{% endblock %}
+
+{% block content %}
+    <article class="blog-detail">
+        <h1>{{ blog.title }}</h1>
+
+        <p class="blog-meta">
+            {{ blog.publish_date }} · {{ blog.author }}
+        </p>
+
+        {% for block in blog.content %}
+            {% if block.type == "h2" %}
+                <h2>{{ block.text }}</h2>
+
+            {% elif block.type == "p" %}
+                <p>{{ block.text }}</p>
+
+            {% elif block.type == "ul" %}
+                <ul>
+                    {% for item in block["items"] %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endfor %}
+
+        {% if blog.related_products %}
+            <section class="related-products">
+                <h2>Related Products</h2>
+                <ul>
+                    {% for product in blog.related_products %}
+                        <li>
+                            <a href="{{ url_for('product_detail', model=product) }}">
+                                View {{ product | upper }} Product
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        {% endif %}
+    </article>
+{% endblock %}
