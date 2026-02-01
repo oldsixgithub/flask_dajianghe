@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/contact.css') }}">
+{% endblock %}
+
 {% block title %}
     Contact Wireless Charger Manufacturer | OEM & Wholesale Supplier
 {% endblock %}
@@ -10,33 +14,66 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Contact Us</h1>
 
-    <p>
-        If you are looking for a reliable <strong>wireless charger manufacturer</strong>,
-        please feel free to contact us for OEM or wholesale cooperation.
-    </p>
+    <!-- Page Header -->
+    <section class="contact-header">
+        <h1>Contact Us</h1>
+        <p class="contact-sub">
+            Looking for a reliable <strong>wireless charger manufacturer</strong> in China?
+            We support OEM customization and wholesale cooperation for B2B buyers.
+        </p>
 
-    <p>
-        We mainly serve <strong>B2B buyers, brand owners, and distributors</strong>.
-        Retail orders are not supported.
-    </p>
-    <br>
-    <div>
-        <h2>Contact Information</h2>
+        <p class="contact-note">
+            This page is for <strong>brand owners, wholesalers, and distributors</strong>.
+            Retail orders are not supported.
+        </p>
+    </section>
 
-        <p><strong>Email:</strong> your@email.com</p>
-        <p><strong>WhatsApp:</strong> +86-XXXXXXXXXX</p>
-        <p><strong>Location:</strong> Shenzhen, China</p>
-    </div>
-    <br>
+    <!-- Contact Info -->
+    <section class="contact-section">
+        <div class="contact-grid">
 
-    <div>
-        <p>To get a faster quotation, please include:</p>
-        <ul>
-            <li>Product model or type</li>
-            <li>Order quantity</li>
+            <div class="page-card contact-card">
+                <h3>Email</h3>
+                <p class="contact-main">your@email.com</p>
+                <p class="contact-desc">
+                    Send us product models, quantity and customization requirements.
+                </p>
+            </div>
+
+            <div class="page-card contact-card">
+                <h3>WhatsApp</h3>
+                <p class="contact-main">+86-XXXXXXXXXX</p>
+                <p class="contact-desc">
+                    Fast response for quotation and OEM discussion.
+                </p>
+            </div>
+
+            <div class="page-card contact-card">
+                <h3>Location</h3>
+                <p class="contact-main">Shenzhen, China</p>
+                <p class="contact-desc">
+                    Professional wireless charger manufacturing base.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quotation Tips -->
+    <section class="contact-section bg-grey">
+        <h2>To Get a Faster Quotation</h2>
+
+        <p class="tips-desc">
+            To help us provide accurate pricing and lead time, please include
+            the following information in your message:
+        </p>
+
+        <ul class="tips-list">
+            <li>Product model or type (e.g. 3-in-1 wireless charger)</li>
+            <li>Order quantity (target MOQ)</li>
             <li>Customization requirements (logo / packaging)</li>
+            <li>Target market or certification needs (if any)</li>
         </ul>
-    </div>
+    </section>
+
 {% endblock %}

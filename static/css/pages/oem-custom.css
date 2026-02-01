@@ -1,0 +1,70 @@
+/* ================================
+   OEM & Custom Page
+================================ */
+
+.oem-hero {
+    max-width: 900px;
+    margin-bottom: calc(var(--gap-xl) * 2);
+}
+
+.oem-hero h1 {
+    font-size: 32px;
+    margin-bottom: var(--gap-md);
+}
+
+.oem-hero p {
+    font-size: 16px;
+    color: var(--text-sub);
+}
+
+/* List */
+.oem-list {
+    padding-left: 18px;
+    margin-top: var(--gap-md);
+}
+
+.oem-list li {
+    list-style: disc;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: var(--text-main);
+}
+
+.oem-note {
+    font-size: 14px;
+    color: var(--text-third);
+    margin-top: var(--gap-sm);
+}
+
+/* CTA */
+.oem-cta {
+    text-align: center;
+}
+
+.btn-primary {
+    display: inline-block;
+    margin-top: var(--gap-md);
+    padding: 10px 26px;
+    background: var(--color-primary);
+    color: #fff;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+/* ================================
+   Mobile
+================================ */
+@media (max-width: 768px) {
+
+    .oem-hero h1 {
+        font-size: 24px;
+    }
+
+    .oem-hero p {
+        font-size: 14px;
+    }
+}

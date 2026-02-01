@@ -1,0 +1,106 @@
+/* ================================
+   Contact Page Styles
+================================ */
+.contact-grid .page-card {
+    margin-bottom: 0;
+}
+
+/* Header */
+.contact-header {
+    max-width: 900px;
+    margin-bottom: calc(var(--gap-xl) * 2);
+}
+
+.contact-header h1 {
+    font-size: 32px;
+    margin-bottom: var(--gap-md);
+}
+
+.contact-sub {
+    font-size: 16px;
+    color: var(--text-sub);
+    margin-bottom: var(--gap-md);
+}
+
+.contact-note {
+    font-size: 14px;
+    color: var(--text-third);
+}
+
+/* Section */
+.contact-section {
+    margin-bottom: calc(var(--gap-xl) * 2);
+}
+
+/* Contact Grid */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap-lg);
+}
+
+.contact-card h3 {
+    font-size: 16px;
+    margin-bottom: var(--gap-sm);
+}
+
+.contact-main {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: var(--gap-sm);
+}
+
+.contact-desc {
+    font-size: 14px;
+    color: var(--text-sub);
+}
+
+/* Tips */
+.tips-desc {
+    max-width: 800px;
+    margin-bottom: var(--gap-md);
+    color: var(--text-sub);
+}
+
+.tips-list {
+    padding-left: 18px;
+}
+
+.tips-list li {
+    list-style: disc;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+/* Grey Background */
+.bg-grey {
+    background: var(--bg-grey);
+    padding: calc(var(--gap-xl) * 1.5);
+    border-radius: var(--radius);
+}
+
+/* ================================
+   Mobile Optimization
+================================ */
+@media (max-width: 768px) {
+
+    .contact-header h1 {
+        font-size: 24px;
+    }
+
+    .contact-sub {
+        font-size: 14px;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-main {
+        font-size: 16px;
+    }
+
+    .bg-grey {
+        padding: var(--gap-lg);
+    }
+}

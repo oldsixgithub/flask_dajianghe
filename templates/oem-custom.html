@@ -1,26 +1,39 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    OEM Wireless Charger Manufacturer | Custom Logo & Packaging
+    OEM & Custom Wireless Charger Manufacturer | Factory Direct
 {% endblock %}
 
 {% block meta %}
     <meta name="description"
-          content="OEM wireless charger manufacturer in China. Custom logo, packaging and low MOQ options for B2B wholesale buyers. Factory direct supply.">
+          content="OEM & custom wireless charger manufacturer in China. Logo printing, custom packaging, flexible MOQ and factory direct supply for B2B buyers.">
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/oem-custom.css') }}">
 {% endblock %}
 
 {% block content %}
-    <h1>OEM & Custom Wireless Charger Service</h1>
 
-    <p>
-        We are a direct <strong>wireless charger manufacturer in China</strong>,
-        providing OEM and customization services for global B2B buyers, brand owners, and distributors.
-    </p>
-    <br>
+    <section class="oem-hero">
+        <h1>OEM & Custom Wireless Charger Service</h1>
+        <p>
+            Factory-direct OEM & ODM solutions for wireless charging products.
+            Designed for brand owners, wholesalers, and distributors.
+        </p>
+    </section>
 
-    <div class="section">
+    <div class="page-card">
+        <h2>What We Customize</h2>
+        <p>
+            As a professional <strong>wireless charger manufacturer</strong>,
+            we provide flexible customization options based on your project requirements.
+        </p>
+    </div>
+
+    <div class="page-card">
         <h2>Logo Customization Options</h2>
-        <ul>
+        <ul class="oem-list">
             <li><strong>Laser Engraving</strong> – Suitable for plastic housing, low MOQ available</li>
             <li><strong>Silk Screen Printing</strong> – Standard MOQ around 300 pcs (lower quantity possible with higher
                 unit cost)
@@ -28,49 +41,44 @@
             <li><strong>Color Printing</strong> – MOQ starting from 100 pcs</li>
         </ul>
     </div>
-    <br>
 
-    <div class="section">
+    <div class="page-card">
         <h2>Packaging Customization</h2>
-        <p>
-            Custom printed color box is available.
-        </p>
-        <ul>
+        <ul class="oem-list">
+            <li>Custom printed color box available</li>
             <li>Standard MOQ: 1000 pcs</li>
-            <li>Box artwork can be adjusted based on your brand</li>
+            <li>Artwork can be adjusted to match your brand identity</li>
         </ul>
     </div>
-    <br>
 
-    <div class="section">
+    <div class="page-card">
         <h2>MOQ Reference</h2>
-        <ul>
+        <ul class="oem-list">
             <li>Stock products: Flexible MOQ</li>
             <li>OEM logo: Depends on customization method</li>
-            <li>Packaging customization: 1000 pcs</li>
+            <li>Custom packaging: 1000 pcs</li>
         </ul>
-        <p>
-            MOQ can be discussed according to your project requirements.
+        <p class="oem-note">
+            MOQ can be discussed based on product model and project scale.
         </p>
     </div>
-    <br>
 
-    <div class="section">
+    <div class="page-card">
         <h2>Production Lead Time</h2>
-        <ul>
+        <ul class="oem-list">
             <li>Samples: 5–7 working days</li>
             <li>300–500 pcs: around 10 working days</li>
             <li>5,000 pcs and above: 20–25 working days</li>
         </ul>
     </div>
-    <br>
 
-    <div class="section">
-        <h2>Contact for OEM Quotation</h2>
+    <div class="page-card oem-cta">
+        <h2>Request OEM Quotation</h2>
         <p>
-            Please contact us with product model, quantity, and customization requirements.
+            Please contact us with product model, quantity,
+            and customization requirements to get a quotation.
         </p>
-        <a href="/contact" class="btn">Contact Us</a>
+        <a href="/contact" class="btn-primary">Contact Us</a>
     </div>
 
 {% endblock %}

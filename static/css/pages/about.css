@@ -1,0 +1,50 @@
+/* =====================================================
+   about.css
+   简约 B2B 工厂 About 页面
+===================================================== */
+
+.about-hero {
+    margin-bottom: var(--gap-xl);
+}
+
+.about-hero h1 {
+    font-size: 28px;
+    margin-bottom: var(--gap-sm);
+}
+
+.about-hero p {
+    font-size: 15px;
+    color: var(--text-sub);
+    max-width: 720px;
+}
+
+/* 列表统一风格 */
+.about-list {
+    margin-top: var(--gap-md);
+    padding-left: 18px;
+}
+
+.about-list li {
+    margin: var(--gap-sm) 0;
+    font-size: 14px;
+    color: var(--text-main);
+}
+
+/* 辅助说明文字 */
+.about-note {
+    margin-top: var(--gap-md);
+    font-size: 13px;
+    color: var(--text-third);
+    line-height: 1.6;
+}
+
+/* 手机端优化 */
+@media (max-width: 768px) {
+    .about-hero h1 {
+        font-size: 22px;
+    }
+
+    .about-hero p {
+        font-size: 14px;
+    }
+}

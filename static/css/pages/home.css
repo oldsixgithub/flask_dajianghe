@@ -1,0 +1,251 @@
+/* ================================
+   Home Page Styles (Responsive)
+   PC + Mobile Optimized
+================================ */
+
+/* ===== Hero ===== */
+.home-hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--gap-xl);
+    align-items: center;
+    margin-bottom: calc(var(--gap-xl) * 2);
+}
+
+.hero-text h1 {
+    font-size: 34px;
+    line-height: 1.3;
+    margin-bottom: var(--gap-md);
+}
+
+.hero-sub {
+    font-size: 16px;
+    color: var(--text-sub);
+    margin-bottom: var(--gap-lg);
+}
+
+.hero-points {
+    padding-left: 0;
+}
+
+.hero-points li {
+    margin-bottom: 8px;
+    font-size: 15px;
+    color: var(--text-main);
+}
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display: block;
+}
+
+/* ===== Section Base ===== */
+.home-section {
+    margin-bottom: calc(var(--gap-xl) * 2);
+}
+
+.home-section h2 {
+    font-size: 26px;
+    margin-bottom: var(--gap-lg);
+}
+
+.section-desc {
+    max-width: 900px;
+    color: var(--text-sub);
+    margin-top: var(--gap-md);
+}
+
+/* ===== Grey Background Section ===== */
+.bg-grey {
+    background: var(--bg-grey);
+    padding: calc(var(--gap-xl) * 1.5);
+    border-radius: var(--radius);
+}
+
+/* ===== Feature Grid ===== */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap-lg);
+}
+
+.feature-card {
+    background: var(--bg-card);
+    padding: var(--gap-lg);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color-light);
+}
+
+.feature-card h3 {
+    font-size: 16px;
+    margin-bottom: var(--gap-sm);
+}
+
+.feature-card p {
+    font-size: 14px;
+    color: var(--text-sub);
+}
+
+/* ===== Image Row ===== */
+.image-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap-lg);
+}
+
+.image-row img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    display: block;
+}
+
+/* ===== Quality Control ===== */
+.qc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap-xl);
+    align-items: center;
+}
+
+.qc-text p {
+    margin-bottom: var(--gap-md);
+    color: var(--text-sub);
+}
+
+.qc-text ul {
+    padding-left: 18px;
+}
+
+.qc-text li {
+    list-style: disc;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.qc-images img {
+    width: 100%;
+    height: auto;
+    margin-bottom: var(--gap-md);
+    border-radius: var(--radius);
+    display: block;
+}
+
+/* ===== OEM Grid ===== */
+.oem-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap-lg);
+}
+
+.oem-item {
+    background: var(--bg-card);
+    padding: var(--gap-lg);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color-light);
+}
+
+.oem-item h3 {
+    font-size: 16px;
+    margin-bottom: var(--gap-sm);
+}
+
+.oem-item p {
+    font-size: 14px;
+    color: var(--text-sub);
+}
+
+/* ===== CTA ===== */
+.home-cta {
+    text-align: center;
+    padding: calc(var(--gap-xl) * 2) var(--gap-lg);
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+}
+
+.home-cta h2 {
+    font-size: 26px;
+    margin-bottom: var(--gap-md);
+}
+
+.home-cta p {
+    color: var(--text-sub);
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.cta-button {
+    display: inline-block;
+    margin-top: var(--gap-lg);
+    padding: 12px 28px;
+    background: var(--color-primary);
+    color: #fff;
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+}
+
+.cta-button:hover {
+    background: var(--color-active);
+}
+
+/* ================================
+   Mobile Optimization
+================================ */
+@media (max-width: 768px) {
+
+    /* Hero：改为纵向，文字在上，图在下 */
+    .home-hero {
+        grid-template-columns: 1fr;
+        gap: var(--gap-lg);
+    }
+
+    .hero-text h1 {
+        font-size: 24px;
+    }
+
+    .hero-sub {
+        font-size: 14px;
+    }
+
+    /* Section spacing 缩紧 */
+    .home-section {
+        margin-bottom: var(--gap-xl);
+    }
+
+    .home-section h2 {
+        font-size: 22px;
+    }
+
+    /* 灰底块不要太厚 */
+    .bg-grey {
+        padding: var(--gap-lg);
+    }
+
+    /* Grid 全部改单列 */
+    .feature-grid,
+    .image-row,
+    .oem-grid,
+    .qc-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* 图片之间拉开 */
+    .image-row img,
+    .qc-images img {
+        margin-bottom: var(--gap-md);
+    }
+
+    /* CTA 字号 */
+    .home-cta h2 {
+        font-size: 22px;
+    }
+
+    .cta-button {
+        width: 100%;
+        text-align: center;
+    }
+}

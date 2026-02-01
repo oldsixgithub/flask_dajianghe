@@ -1,80 +1,84 @@
 {% extends 'base.html' %}
 
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/about.css') }}">
+{% endblock %}
+
 {% block title %}
-    Wireless Charger Manufacturer & OEM Factory in China
+    Wireless Charger Manufacturer | OEM & ODM Factory in China
 {% endblock %}
 
 {% block meta %}
     <meta name="description"
-          content="Professional wireless charger manufacturer in China, offering OEM & ODM services for B2B wholesale buyers worldwide.">
+          content="Professional wireless charger manufacturer in China, providing OEM & ODM services for global B2B buyers. Factory direct supply.">
 {% endblock %}
 
 {% block content %}
-    <h1>About Us</h1>
 
-    <p>
-        We are a professional <strong>wireless charger manufacturer</strong> based in China,
-        specializing in the production of wireless charging products for global B2B customers.
-        All products are supplied directly from our factory.
-    </p>
+    <section class="about-hero">
+        <h1>Wireless Charger Manufacturer in China</h1>
+        <p>
+            Factory-direct supplier specializing in OEM & ODM wireless charging products
+            for global B2B buyers.
+        </p>
+    </section>
 
+    <div class="page-card">
+        <h2>Who We Are</h2>
+        <p>
+            We are a professional <strong>wireless charger manufacturer</strong> based in China,
+            focusing on stable production and long-term B2B cooperation.
+            All products are supplied directly from our factory.
+        </p>
+    </div>
 
-    <p>
-        Our main products include <strong>3-in-1 wireless charging stations, MagSafe charger stands,
-        and phone wireless chargers</strong>, widely used for wholesale, brand OEM, and distribution projects.
-    </p>
-    <br>
+    <div class="page-card">
+        <h2>Products We Manufacture</h2>
+        <ul class="about-list">
+            <li>3-in-1 Wireless Charging Stations</li>
+            <li>MagSafe Charger Stands</li>
+            <li>Phone Wireless Chargers</li>
+            <li>Custom Charging Solutions for OEM Projects</li>
+        </ul>
+    </div>
 
-    <h2>Factory & Production Capability</h2>
+    <div class="page-card">
+        <h2>Factory & Production Capability</h2>
+        <ul class="about-list">
+            <li>In-house assembly production lines</li>
+            <li>Raw material & finished goods warehouse</li>
+            <li>Laser engraving for logo customization</li>
+            <li>Aging & functional testing before shipment</li>
+        </ul>
+        <p class="about-note">
+            For silk screen and color printing, we cooperate with long-term partner factories
+            to ensure consistent quality.
+        </p>
+    </div>
 
-    <p>
-        We operate as a direct factory with in-house assembly lines, warehouse management,
-        and quality control processes.
-    </p>
+    <div class="page-card">
+        <h2>OEM & ODM Customization</h2>
+        <p>
+            We provide flexible OEM & ODM services, including logo engraving,
+            housing printing, and customized packaging.
+        </p>
+        <p class="about-note">
+            MOQ and pricing depend on customization requirements.
+            We welcome long-term cooperation discussions.
+        </p>
+    </div>
 
-    <ul>
-        <li>Assembly production lines</li>
-        <li>Warehouse for raw materials and finished goods</li>
-        <li>Laser engraving equipment for logo customization</li>
-        <li>Aging and functional testing before shipment</li>
-    </ul>
-
-    <p>
-        For silk screen printing and color printing, we work with long-term cooperative factories
-        to ensure stable quality and consistent output.
-    </p>
-    <br>
-
-    <h2>OEM & Customization Service</h2>
-
-    <p>
-        We provide flexible OEM and ODM services for B2B buyers.
-        Customization options include logo engraving, housing printing,
-        and custom packaging for bulk orders.
-    </p>
-
-    <p>
-        MOQ and pricing may vary depending on customization requirements.
-        We are open to discussion for long-term cooperation.
-    </p>
-    <br>
-    
-    <h2>Our Clients</h2>
-
-    <p>
-        We mainly work with:
-    </p>
-
-    <ul>
-        <li>Wholesale buyers</li>
-        <li>Brand owners</li>
-        <li>Distributors</li>
-        <li>Importers and trading companies</li>
-    </ul>
-
-    <p>
-        We do not focus on retail sales. Our goal is to support stable B2B supply
-        with clear communication and reliable delivery.
-    </p>
+    <div class="page-card">
+        <h2>Who We Work With</h2>
+        <ul class="about-list">
+            <li>Brand owners</li>
+            <li>Wholesale buyers</li>
+            <li>Distributors</li>
+            <li>Importers & trading companies</li>
+        </ul>
+        <p class="about-note">
+            We focus on B2B supply only and do not operate retail sales.
+        </p>
+    </div>
 
 {% endblock %}
