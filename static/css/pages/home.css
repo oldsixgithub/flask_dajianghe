@@ -190,6 +190,7 @@
 
 .cta-button:hover {
     background: var(--color-active);
+    color: #fff;
 }
 
 /* ================================
