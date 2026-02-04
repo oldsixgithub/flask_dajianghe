@@ -1,6 +1,6 @@
 /* =====================================================
    base.css
-   职责：全站变量 / reset / 基础文本样式
+   职责：全站变量 / reset / 基础文本样式 / 通用工具类
    无任何组件/布局样式
 ===================================================== */
 :root {
@@ -81,9 +81,17 @@ a:hover {
     color: var(--color-active);
 }
 
-/* 通用列表样式 */
-ul {
-    list-style: none;
+/* 通用列表样式（统一所有页面的列表，替代 about-list/oem-list/tips-list） */
+.page-list {
+    padding-left: 18px;
+    margin-top: var(--gap-md);
+}
+
+.page-list li {
+    list-style: disc;
+    margin: var(--gap-sm) 0;
+    font-size: 14px;
+    color: var(--text-main);
 }
 
 /* 全局文本兜底，防止长文本溢出 */
@@ -91,6 +99,19 @@ p, h1, h2, h3, h4, h5, h6, span {
     max-width: 100%;
     word-wrap: break-word;
     white-space: normal;
+}
+
+/* 通用工具类（减少重复间距样式） */
+.text-center {
+    text-align: center;
+}
+
+.mb-xl {
+    margin-bottom: var(--gap-xl);
+}
+
+.mb-2xl {
+    margin-bottom: calc(var(--gap-xl) * 2);
 }
 
 /* 响应式基础变量（全局统一调整，其他文件直接复用） */

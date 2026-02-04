@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+{% from "macros.html" import render_blog_content %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/blog_detail.css') }}">
+{% endblock %}
 
 {% block title %}{{ blog.title }}{% endblock %}
 
@@ -8,11 +13,13 @@
 {% endblock %}
 
 {% block content %}
-    <div class="blog-detail">
-        <h1>{{ blog.title }}</h1>
-        <p class="publish-time">发布时间：{{ blog.publish_time }}</p>
+    <div class="blog-detail-container">
+        <h1 class="blog-detail-title">{{ blog.title }}</h1>
+        <p class="blog-publish-time">发布时间：{{ blog.publish_time }}{% if blog.update_time %} | 更新时间：
+            {{ blog.update_time }}{% endif %}</p>
         <div class="blog-content">
-            {{ blog.content|safe }}
+            {# 传递blog参数，用于宏中拼接图片路径 #}
+            {{ render_blog_content(blog, blog.content_blocks) }}
         </div>
     </div>
 {% endblock %}

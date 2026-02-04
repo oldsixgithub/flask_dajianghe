@@ -2,7 +2,6 @@
    Home Page Styles (Responsive)
    PC + Mobile Optimized
 ================================ */
-
 /* ===== Hero ===== */
 .home-hero {
     display: grid;
@@ -58,13 +57,6 @@
     margin-top: var(--gap-md);
 }
 
-/* ===== Grey Background Section ===== */
-.bg-grey {
-    background: var(--bg-grey);
-    padding: calc(var(--gap-xl) * 1.5);
-    border-radius: var(--radius);
-}
-
 /* ===== Feature Grid ===== */
 .feature-grid {
     display: grid;
@@ -114,16 +106,6 @@
 .qc-text p {
     margin-bottom: var(--gap-md);
     color: var(--text-sub);
-}
-
-.qc-text ul {
-    padding-left: 18px;
-}
-
-.qc-text li {
-    list-style: disc;
-    margin-bottom: 6px;
-    font-size: 14px;
 }
 
 .qc-images img {
@@ -178,26 +160,10 @@
     margin: 0 auto;
 }
 
-.cta-button {
-    display: inline-block;
-    margin-top: var(--gap-lg);
-    padding: 12px 28px;
-    background: var(--color-primary);
-    color: #fff;
-    border-radius: var(--radius-sm);
-    font-size: 15px;
-}
-
-.cta-button:hover {
-    background: var(--color-active);
-    color: #fff;
-}
-
 /* ================================
    Mobile Optimization
 ================================ */
 @media (max-width: 768px) {
-
     /* Hero：改为纵向，文字在上，图在下 */
     .home-hero {
         grid-template-columns: 1fr;
@@ -208,10 +174,6 @@
         font-size: 24px;
     }
 
-    .hero-sub {
-        font-size: 14px;
-    }
-
     /* Section spacing 缩紧 */
     .home-section {
         margin-bottom: var(--gap-xl);
@@ -219,11 +181,6 @@
 
     .home-section h2 {
         font-size: 22px;
-    }
-
-    /* 灰底块不要太厚 */
-    .bg-grey {
-        padding: var(--gap-lg);
     }
 
     /* Grid 全部改单列 */

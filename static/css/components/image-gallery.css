@@ -1,9 +1,8 @@
 /* =====================================================
    components/image-gallery.css
    职责：通用图片画廊（非详情页专用）
-   优化：重命名选择器，避免和 product_detail.css 冲突
 ===================================================== */
-/* 通用图片画廊（重命名：generic-image-gallery，避免和详情页冲突） */
+/* 通用图片画廊 */
 .generic-image-gallery {
     display: flex;
     gap: var(--gap-lg);
@@ -11,7 +10,7 @@
     padding: var(--gap-lg);
 }
 
-/* 左侧缩略图（通用版，重命名前缀） */
+/* 左侧缩略图 */
 .generic-thumbnail-container {
     display: flex;
     flex-direction: column;
@@ -37,7 +36,7 @@
     border-radius: var(--radius-xs);
 }
 
-/* 右侧大图（通用版，重命名前缀） */
+/* 右侧大图 */
 .generic-main-image-container {
     flex: 1;
     min-height: 400px;

@@ -5,31 +5,9 @@
     margin-bottom: 0;
 }
 
-/* Header */
-.contact-header {
-    max-width: 900px;
-    margin-bottom: calc(var(--gap-xl) * 2);
-}
-
-.contact-header h1 {
-    font-size: 32px;
-    margin-bottom: var(--gap-md);
-}
-
-.contact-sub {
-    font-size: 16px;
-    color: var(--text-sub);
-    margin-bottom: var(--gap-md);
-}
-
-.contact-note {
-    font-size: 14px;
-    color: var(--text-third);
-}
-
-/* Section */
+/* 关键修改1：给所有 contact-section 统一加底部间距（核心解决贴边问题） */
 .contact-section {
-    margin-bottom: calc(var(--gap-xl) * 2);
+    margin-bottom: var(--gap-xl);
 }
 
 /* Contact Grid */
@@ -37,6 +15,8 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--gap-lg);
+    /* 关键修改2：删除这里的 margin-bottom（已经由父级 contact-section 统一控制，避免间距重复） */
+    /* margin-bottom: var(--gap-xl); */
 }
 
 .contact-card h3 {
@@ -62,36 +42,24 @@
     color: var(--text-sub);
 }
 
-.tips-list {
-    padding-left: 18px;
+/* 新增：地图区域样式（保证自适应和美观） */
+.contact-map-section {
+    /* 关键修改3：删除这里的 margin-bottom（由父级 contact-section 统一控制，保持间距一致） */
+    /* margin-bottom: var(--gap-xl); */
 }
 
-.tips-list li {
-    list-style: disc;
-    margin-bottom: 8px;
-    font-size: 14px;
+.map-container {
+    padding: var(--gap-xl);
 }
 
-/* Grey Background */
-.bg-grey {
-    background: var(--bg-grey);
-    padding: calc(var(--gap-xl) * 1.5);
-    border-radius: var(--radius);
+.map-container h3 {
+    font-size: 18px;
+    color: var(--text-main);
+    margin: 0;
 }
 
-/* ================================
-   Mobile Optimization
-================================ */
+/* 手机端优化 */
 @media (max-width: 768px) {
-
-    .contact-header h1 {
-        font-size: 24px;
-    }
-
-    .contact-sub {
-        font-size: 14px;
-    }
-
     .contact-grid {
         grid-template-columns: 1fr;
     }
@@ -100,7 +68,12 @@
         font-size: 16px;
     }
 
-    .bg-grey {
-        padding: var(--gap-lg);
+    /* 新增：手机端地图高度适配 */
+    .map-container {
+        padding: var(--gap-md);
+    }
+
+    iframe {
+        height: 300px !important; /* 手机端适当降低地图高度，避免页面过长 */
     }
 }

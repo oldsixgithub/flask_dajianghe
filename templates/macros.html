@@ -1,0 +1,33 @@
+{# templates/macros.html - 适配单篇Blog专属文件夹 #}
+{% macro render_blog_content(blog, content_blocks) %}
+    {% for block in content_blocks %}
+        {# 二级标题 #}
+        {% if block.type == "title2" %}
+            <h2 class="blog-title2">{{ block.content }}</h2>
+            {# 普通段落 #}
+        {% elif block.type == "paragraph" %}
+            <p class="blog-paragraph">
+                {% if block.product_links %}
+                    {% set paragraph_content = block.content %}
+                    {% for label, model in block.product_links.items() %}
+                        {% set product_link = url_for('product_detail', model=model) %}
+                        {% set replaced_content = paragraph_content|replace('{' + label + '}', '<a href="' + product_link + '" class="blog-product-link">' + label + '</a>') %}
+                        {% set paragraph_content = replaced_content %}
+                    {% endfor %}
+                    {{ paragraph_content|safe }}
+                {% else %}
+                    {{ block.content }}
+                {% endif %}
+            </p>
+            {# 图片（核心修改：拼接单篇Blog专属文件夹路径） #}
+        {% elif block.type == "image" %}
+            <div class="blog-image-wrapper">
+                <img
+                        src="{{ url_for('static', filename='images/blogs/' + blog.blog_img_folder + '/' + block.src) }}"
+                        alt="{{ block.alt }}"
+                        class="blog-image"
+                >
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endmacro %}

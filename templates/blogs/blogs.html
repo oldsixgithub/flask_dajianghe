@@ -1,16 +1,25 @@
 {% extends "base.html" %}
 
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/blogs.css') }}"> {# 新增Blog列表页样式 #}
+{% endblock %}
+
 {% block title %}最新博客 - 大江河数码{% endblock %}
 
 {% block content %}
-    <div class="blog-list">
-        <h1>最新博客</h1>
+    <div class="blog-list-container">
+        <h1 class="blog-list-title">最新博客</h1>
         {% for blog in blogs %}
-            <div class="blog-item">
-                <h2><a href="/blogs/{{ blog.slug }}">{{ blog.title }}</a></h2>
-                <p>{{ blog.description }}</p>
-                <p>发布时间：{{ blog.publish_time }}</p>
+            <div class="blog-list-item">
+                <h2 class="blog-item-title">
+                    <a href="{{ url_for('blog_detail', slug=blog.slug) }}" class="blog-item-link">{{ blog.title }}</a>
+                </h2>
+                <p class="blog-item-desc">{{ blog.description }}</p>
+                <p class="blog-item-time">发布时间：{{ blog.publish_time }}{% if blog.update_time %} | 更新时间：
+                    {{ blog.update_time }}{% endif %}</p>
             </div>
+        {% else %}
+            <p class="blog-list-empty">暂无博客内容，敬请期待！</p>
         {% endfor %}
     </div>
 {% endblock %}

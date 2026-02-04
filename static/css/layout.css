@@ -1,7 +1,7 @@
 /* =====================================================
    layout.css
-   职责：导航/页脚/页面容器 等全局布局
-   优化：清除冗余样式，防止手机端文字溢出
+   职责：导航/页脚/页面容器 等全局布局 + 通用页面样式
+   优化：统一 bg-grey、Hero 样式，防止手机端文字溢出
 ===================================================== */
 /* 顶部导航 */
 .nav-bar {
@@ -73,6 +73,25 @@
     box-sizing: border-box;
 }
 
+/* 通用灰底背景（统一所有页面，替代各页面重复定义） */
+.bg-grey {
+    background: var(--bg-grey);
+    padding: calc(var(--gap-xl) * 1.5);
+    border-radius: var(--radius);
+}
+
+/* 通用 Hero 区域样式（统一所有页面的标题区域，减少重复） */
+.hero-section h1 {
+    font-size: 32px;
+    margin-bottom: var(--gap-md);
+}
+
+.hero-section p {
+    font-size: 16px;
+    color: var(--text-sub);
+    max-width: 900px;
+}
+
 /* 页脚 */
 .footer {
     margin-top: calc(var(--gap-xl) * 2.5);
@@ -133,6 +152,20 @@
         margin: var(--gap-md) auto;
         /* 手机端主体内边距微调，避免贴边 */
         padding: 0 var(--gap-md);
+    }
+
+    /* 通用灰底背景手机端适配 */
+    .bg-grey {
+        padding: var(--gap-lg);
+    }
+
+    /* 通用 Hero 区域手机端适配 */
+    .hero-section h1 {
+        font-size: 24px;
+    }
+
+    .hero-section p {
+        font-size: 14px;
     }
 
     /* 手机端页脚保持贴底，微调间距 */
