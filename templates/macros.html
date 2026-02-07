@@ -1,29 +1,38 @@
-{# templates/macros.html - 适配单篇Blog专属文件夹 #}
+{# templates/macros.html - 解决匹配成功但无链接问题，必生效 #}
 {% macro render_blog_content(blog, content_blocks) %}
     {% for block in content_blocks %}
-        {# 二级标题 #}
         {% if block.type == "title2" %}
             <h2 class="blog-title2">{{ block.content }}</h2>
-            {# 普通段落 #}
         {% elif block.type == "paragraph" %}
             <p class="blog-paragraph">
-                {% if block.product_links %}
-                    {% set paragraph_content = block.content %}
+                {% set raw_content = block.content %}
+                {% set final_output = raw_content %} {# 初始化最终输出 #}
+
+                {% if block is defined and block.product_links is defined and block.product_links|length > 0 %}
                     {% for label, model in block.product_links.items() %}
-                        {% set product_link = url_for('product_detail', model=model) %}
-                        {% set replaced_content = paragraph_content|replace('{' + label + '}', '<a href="' + product_link + '" class="blog-product-link">' + label + '</a>') %}
-                        {% set paragraph_content = replaced_content %}
+                        {# 1. 生成所有必要变量（确认无误） #}
+                        {% set plink = url_for('product_detail', model=model) %}
+                        {% set placeholder_half = '{' ~ label ~ '}' %} {# 半角大括号（默认） #}
+                        {% set placeholder_full = '｛' ~ label ~ '｝' %} {# 全角大括号（兼容隐藏问题） #}
+                        {% set a_tag = '<a href="'~plink~'" class="blog-product-link" target="_blank">'~label~'</a>' %}
+
+                        {# 2. 双重保险替换：先半角，再全角，确保匹配 #}
+                        {% set final_output = final_output|replace(placeholder_half, a_tag)|replace(placeholder_full, a_tag) %}
+
+                        {# 调试：查看替换前后对比（确认占位符和替换结果） #}
+                        <!-- 调试：原始占位符={{ placeholder_half }}, 替换后={{ a_tag }}, 最终输出片段={{ final_output }} -->
                     {% endfor %}
-                    {{ paragraph_content|safe }}
+
+                    {# 3. 强制输出替换结果，safe过滤器确保a标签不转义 #}
+                    {{ final_output|safe }}
                 {% else %}
-                    {{ block.content }}
+                    {{ raw_content }}
                 {% endif %}
             </p>
-            {# 图片（核心修改：拼接单篇Blog专属文件夹路径） #}
         {% elif block.type == "image" %}
             <div class="blog-image-wrapper">
                 <img
-                        src="{{ url_for('static', filename='images/blogs/' + blog.blog_img_folder + '/' + block.src) }}"
+                        src="{{ url_for('static', filename='images/blogs/'~blog.blog_img_folder~'/'~block.src) }}"
                         alt="{{ block.alt }}"
                         class="blog-image"
                 >

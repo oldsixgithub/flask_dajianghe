@@ -14,8 +14,8 @@
 
 {% block content %}
     <section class="product-detail">
-        <!-- 原有 HTML 结构不变，此处省略（和之前一致） -->
         <h1>{{ product.name }}</h1>
+        <p>Model:&nbsp;<strong>{{ product.model | upper  }}</strong></p>
         <p>Update time: {{ product.update_time }}</p>
 
         {% set scanned_images = product.scanned_images %}

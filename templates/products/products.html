@@ -14,23 +14,17 @@
 {% endblock %}
 
 {% block content %}
-    <!-- 新增：卡片样式切换按钮 -->
     <div class="card-toggle-container">
         <button class="btn-toggle card-toggle-active" data-card-type="detailed">Detailed View</button>
         <button class="btn-toggle" data-card-type="simple">Simple View</button>
     </div>
 
-    <h1>Wireless Charging Products</h1>
-
-    <!-- 改造：外层添加卡片容器，用于切换样式 -->
     <div class="product-cards-container" id="productCardsContainer">
         {% for key, product in products.items() %}
             {% set scanned_images = product.scanned_images %}
             {% set main_image = scanned_images.main_image %}
-            {% if main_image %}  <!-- 判空，避免图片不存在时报错 -->
-                <!-- 改造：给卡片添加双样式类，通过JS切换容器类来控制显示 -->
+            {% if main_image %}
                 <div class="product-card-wrapper" data-model="{{ key }}">
-                    <!-- 原有详细卡片 -->
                     <div class="page-card detailed-card">
                         <div class="product-card-container">
                             <div class="product-image-col">
@@ -75,7 +69,6 @@
                         </div>
                     </div>
 
-                    <!-- 新增：简约卡片（仅图片+产品名称） -->
                     <div class="page-card simple-card">
                         <a href="{{ url_for('product_detail', model=key) }}" class="simple-card-link">
                             <div class="simple-card-image">
@@ -90,7 +83,6 @@
     </div>
 {% endblock %}
 
-<!-- 新增：JS 实现卡片切换逻辑 -->
 {% block js %}
     <script>
         // 获取元素

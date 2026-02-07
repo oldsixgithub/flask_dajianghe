@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>页面找不到啦</title>
+    <!-- 兜底：就算JS禁用，5秒后也会自动跳转（和视觉倒计时保持一致） -->
+    <meta http-equiv="refresh" content="5, url=https://dajianghe.pythonanywhere.com">
+    <style>
+        body {
+            text-align: center;
+            padding: 50px;
+            font-family: sans-serif;
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .countdown {
+            color: #dc3545;
+            font-weight: bold;
+            font-size: 1.4em;
+        }
+
+        .nf_card {
+            margin-bottom: 10px;
+            font-size: 1.4em;
+        }
+
+    </style>
+</head>
+<body>
+<h1>404 Page lost~</h1>
+<p>The path you entered may be incorrect, or the page has already been moved!</p>
+
+<div class="nf_card">
+    <span style="font-weight: bold;">Coming back to the homepage soon</span>
+    <span class="countdown" id="countdown">5</span>
+    <span class="countdown">S</span><br>
+</div>
+
+<div class="nf_card">
+    <span style="font-weight: bold;">
+        You can also directly click on:
+        <a href="https://dajianghe.pythonanywhere.com">
+            DaJiangHe
+        </a>
+    </span>
+</div>
+
+<script>
+    // 1. 定义倒计时总秒数（和meta标签里的数字保持一致）
+    let remainingSeconds = 5;
+    // 2. 获取页面上显示倒计时的元素
+    const countdownElement = document.getElementById('countdown');
+
+    // 3. 定时器：每秒执行一次（1000毫秒=1秒）
+    const countdownTimer = setInterval(function () {
+        // 4. 秒数减1
+        remainingSeconds--;
+        // 5. 更新页面上的倒计时数字
+        countdownElement.textContent = remainingSeconds;
+
+        // 6. 当倒计时到0时，停止定时器并手动跳转
+        if (remainingSeconds <= 0) {
+            clearInterval(countdownTimer); // 清除定时器，避免多余执行
+            window.location.href = 'https://dajianghe.pythonanywhere.com'; // 跳转到首页
+        }
+    }, 1000);
+</script>
+</body>
+</html>

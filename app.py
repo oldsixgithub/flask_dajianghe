@@ -1,10 +1,17 @@
 from datetime import datetime
-from flask import Flask, render_template, abort, send_file, current_app, Response
+from flask import Flask, render_template, abort, send_file, Response
 from data.products import PRODUCTS
 from data.blogs import BLOGS
 import os
 
 app = Flask(__name__)
+
+
+# 自定义404错误页面
+@app.errorhandler(404)
+def page_not_found(e):
+    # 渲染自定义404页面，也可以直接返回HTML字符串
+    return render_template('404.html'), 404
 
 
 # 新增：谷歌验证文件路由（让根目录可直接访问验证文件）
@@ -244,24 +251,27 @@ def product_detail(model):
     )
 
 
+# 博客列表页路由（你已有的，这里仅作补充参考）
 @app.route("/blogs")
-def blog_list():
+def blogs():
     return render_template(
         "blogs/blogs.html",
         blogs=BLOGS
     )
 
 
-# Blog详情页路由（动态匹配slug，渲染单篇Blog）
-@app.route('/blogs/<slug>')
+@app.route("/blogs/<slug>")
 def blog_detail(slug):
-    # 根据slug查找对应的Blog
+    # 查找对应 blog
     blog = next((b for b in BLOGS if b["slug"] == slug), None)
-    # 如果找不到，返回404
     if not blog:
-        return "Blog not found", 404
-    # 渲染Blog详情模板，传递Blog数据
-    return render_template('blogs/blog_detail.html', blog=blog)
+        abort(404)
+    # 渲染详情页，同时传 PRODUCTS 用于推荐
+    return render_template(
+        "blogs/blog_detail.html",
+        blog=blog,
+        products=PRODUCTS
+    )
 
 
 @app.route('/contact')

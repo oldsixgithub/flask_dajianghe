@@ -1,25 +1,36 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/blogs.css') }}"> {# 新增Blog列表页样式 #}
+{% block title %}
+    Blog | Wireless Charger Insights
 {% endblock %}
 
-{% block title %}最新博客 - 大江河数码{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/blogs.css') }}">
+{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="Read our blogs on wireless charging, product guides, and recommendations.">
+{% endblock %}
 
 {% block content %}
-    <div class="blog-list-container">
-        <h1 class="blog-list-title">最新博客</h1>
-        {% for blog in blogs %}
-            <div class="blog-list-item">
-                <h2 class="blog-item-title">
-                    <a href="{{ url_for('blog_detail', slug=blog.slug) }}" class="blog-item-link">{{ blog.title }}</a>
-                </h2>
-                <p class="blog-item-desc">{{ blog.description }}</p>
-                <p class="blog-item-time">发布时间：{{ blog.publish_time }}{% if blog.update_time %} | 更新时间：
-                    {{ blog.update_time }}{% endif %}</p>
-            </div>
-        {% else %}
-            <p class="blog-list-empty">暂无博客内容，敬请期待！</p>
-        {% endfor %}
-    </div>
+    <section class="blogs-overview blog-container">
+        <div class="blog-list">
+            {% for blog in blogs %}
+                <div class="blog-card">
+                    <!-- 博客标题 -->
+                    <h3><a href="{{ url_for('blog_detail', slug=blog.slug) }}">{{ blog.title }}</a></h3>
+                    <!-- 博客简略说明 -->
+                    <p>{{ blog.description }}</p>
+                    <!-- 时间判断：有更新时间显更新，无则显发布时间 -->
+                    <small>
+                        {% if blog.update_time and blog.update_time.strip() %}
+                            Updated: {{ blog.update_time }}
+                        {% else %}
+                            Published: {{ blog.publish_time }}
+                        {% endif %}
+                    </small>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 {% endblock %}

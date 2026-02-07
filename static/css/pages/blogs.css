@@ -1,75 +1,77 @@
-/* Blog列表页样式 */
-.blog-list-container {
+/* =====================================================
+   blogs.css
+   职责：博客总览页专属样式（列表/卡片布局、专属交互）
+   复用：base.css全局变量/工具类、components/card.css卡片基础样式
+===================================================== */
+/* 博客通用容器（总览/详情页共用） */
+.blog-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 var(--gap-md);
+    padding: calc(var(--gap-xl) * 2) var(--gap-xl);
+    color: var(--text-main);
 }
 
-.blog-list-title {
-    font-size: 28px;
-    color: var(--text-main);
-    margin-bottom: var(--gap-xl);
+/* 博客总览页-标题 */
+.blogs-overview h1 {
     text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: calc(var(--gap-xl) * 2);
 }
 
-.blog-list-item {
-    background: var(--bg-card);
+/* 博客卡片列表-单列布局（每行仅一个博客） */
+.blog-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--gap-xl);
+}
+
+/* 博客卡片-基础样式 */
+.blog-card {
+    background-color: var(--bg-card);
     border-radius: var(--radius);
-    box-shadow: var(--shadow-sm);
-    padding: var(--gap-xl);
-    margin-bottom: var(--gap-lg);
-    transition: box-shadow 0.2s ease;
-}
-
-.blog-list-item:hover {
+    overflow: hidden;
     box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    padding: var(--gap-lg); /* 新增内边距，无图片后卡片更美观 */
 }
 
-.blog-item-title {
-    font-size: 20px;
-    margin-bottom: var(--gap-sm);
+/* 博客卡片-hover交互 */
+.blog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-sm);
 }
 
-.blog-item-link {
-    color: var(--text-main);
-    text-decoration: none;
+/* 博客卡片-内容区间距/文本样式 */
+.blog-card h3 {
+    font-size: 1.25rem;
+    margin: 0 0 var(--gap-sm) 0;
 }
 
-.blog-item-link:hover {
-    color: var(--color-primary);
-    text-decoration: underline;
-}
-
-.blog-item-desc {
-    font-size: 14px;
+.blog-card p {
+    font-size: 0.95rem;
+    margin: 0 0 var(--gap-sm) 0;
     color: var(--text-sub);
-    margin-bottom: var(--gap-sm);
-    line-height: 1.6;
 }
 
-.blog-item-time {
-    font-size: 12px;
+.blog-card small {
+    margin: auto 0 0 0; /* 时间靠下对齐，卡片布局更协调 */
     color: var(--text-third);
 }
 
-.blog-list-empty {
-    text-align: center;
-    color: var(--text-sub);
-    font-size: 16px;
-    margin-top: var(--gap-xl);
+/* 博客卡片-链接样式 */
+.blog-card a {
+    font-weight: 500;
 }
 
-/* 移动端适配 */
-@media (max-width: 768px) {
-    .blog-list-title {
-        font-size: 24px;
+/* 响应式：小屏适配 */
+@media screen and (max-width: 768px) {
+    .blog-container {
+        padding: var(--gap-xl) var(--gap-sm);
     }
 
-    .blog-list-item {
+    .blog-card {
         padding: var(--gap-md);
-    }
-
-    .blog-item-title {
-        font-size: 18px;
     }
 }
