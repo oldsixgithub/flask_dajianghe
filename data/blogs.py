@@ -8,16 +8,6 @@ BLOGS = [
         "content": [
             {
                 "type": "text",
-                "value": "查看<a href='/products/h301'>h301</a>"
-            },
-
-            {
-                "type": "text",
-                "value": "查看<a href='/blogs/how-to-customize-wireless-charger'>bog1</a>"
-            },
-
-            {
-                "type": "text",
                 "value": "Custom wireless chargers are widely used for brand promotion, corporate gifts, and private label sales. Before placing an order, buyers often have questions about minimum order quantity (MOQ), logo customization, and packaging options. This guide explains the full customization process from a factory perspective."
             },
 
