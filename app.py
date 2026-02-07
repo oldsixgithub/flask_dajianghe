@@ -39,6 +39,24 @@ def dynamic_sitemap():
     xml_content += '        <priority>1.0</priority>\n'
     xml_content += '    </url>\n'
 
+    # 2.1 添加联系页（优先级最高，固定不变）
+    xml_content += '    <url>\n'
+    xml_content += f'        <loc>https://dajianghe.pythonanywhere.com/contact</loc>\n'
+    xml_content += '        <priority>1.0</priority>\n'
+    xml_content += '    </url>\n'
+
+    # 2.2 添加关于页（优先级最高，固定不变）
+    xml_content += '    <url>\n'
+    xml_content += f'        <loc>https://dajianghe.pythonanywhere.com/about</loc>\n'
+    xml_content += '        <priority>1.0</priority>\n'
+    xml_content += '    </url>\n'
+
+    # 2.3 添加oem页（优先级最高，固定不变）
+    xml_content += '    <url>\n'
+    xml_content += f'        <loc>https://dajianghe.pythonanywhere.com/oem-custom</loc>\n'
+    xml_content += '        <priority>1.0</priority>\n'
+    xml_content += '    </url>\n'
+
     # 3. 添加产品列表页（复数 /products，和你的路由一致）
     xml_content += '    <url>\n'
     xml_content += f'        <loc>https://dajianghe.pythonanywhere.com/products</loc>\n'
